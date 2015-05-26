@@ -27,7 +27,7 @@ Perso.prototype.setImage = function(name) {
 Perso.prototype.update = function() {
     this.x += this.vx;
     
-    if(this.x > 236 && this.x < 400 && this.y == 636){
+    if(this.onPortal){
         this.jump();
         this.jumpSpeed = 250;
     }
