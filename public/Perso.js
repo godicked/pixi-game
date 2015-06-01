@@ -1,6 +1,6 @@
 function Perso() {
 	PIXI.TilingSprite.call(this);
-    this.x = 20;
+    this.x = 640-64;
 	this.y = 636;
     this.vx = 0;
     this.images = {};
