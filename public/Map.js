@@ -1,4 +1,3 @@
-
 function Map(resources) {
     PIXI.Container.call(this);
     this.obstacles = new PIXI.Container();
@@ -33,6 +32,7 @@ Map.prototype.loadTest = function() {
     this.obstacles.addChild(new Rectangle(400, 500, 100, 100));
     this.obstacles.addChild(new Rectangle(150, 400, 100, 200));
     this.obstacles.addChild(new Rectangle(700, 250, 100, 350));
+    this.obstacles.addChild(new Rectangle(200, 200, 100, 100));
     this.addChild(this.obstacles);
     this.player = new Player(10, 534, this.obstacles);
     this.player.texture = this.resources.cat.texture;

@@ -43,6 +43,10 @@ Player.prototype.jump = function(force) {
         this.savedY = this.y;
     }
 };
+Player.prototype.forceFall = function() {
+    this.isFalling = false;
+    this.jump(0);
+};
 Player.prototype.colisionX = function() {
     var elem = this.obstacles.children;
     var l = elem.length;
@@ -77,6 +81,7 @@ Player.prototype.colisionY = function() {
                 else{
                     var offset = elem[i].y + elem[i].height - this.y;
                     this.y += offset;
+                    this.forceFall();
                 }
             }
             if(offsetColision(this, elem[i], 1)) {
