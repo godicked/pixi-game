@@ -6,7 +6,7 @@ function Game() {
     
     var loader = PIXI.loader;
     loader.add('cat', '/public/ressources/perso.png');
-    loader.add('tiles', '/public/ressources/tiles.jpg');
+    loader.add('tiles', '/public/ressources/tiles_grey.jpg');
     
     loader.on('load', function(loader, resources) {
         console.log('file ' + resources.name + ' : loaded');

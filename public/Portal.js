@@ -1,7 +1,7 @@
 function Portal(x,y){
     PIXI.Graphics.call(this);
     this.beginFill(0x0000ff);
-    this.drawRect(0,0,20,5);
+    this.drawRect(0,0,30,10);
     this.endFill();
     this.moving = false;
     this.visible = false;
