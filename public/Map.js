@@ -1,5 +1,9 @@
 function Map(resources) {
     PIXI.Container.call(this);
+    this.background = new PIXI.extras.TilingSprite();
+    this.element = new PIXI.Container();
+    this.addChild(this.background);
+    this.addChild(this.element);
     this.obstacles = new PIXI.Container();
     this.resources = resources;
     
@@ -29,28 +33,29 @@ function Map(resources) {
 }
 Map.prototype = Object.create(PIXI.Container.prototype);
 Map.prototype.loadTest = function() {
+    this.background.height = 600;
+    this.background.width = 800;
+    this.background.texture = this.resources.tiles.texture;
     this.obstacles.addChild(new Rectangle(400, 500, 100, 100));
     this.obstacles.addChild(new Rectangle(150, 400, 100, 200));
     this.obstacles.addChild(new Rectangle(700, 250, 100, 350));
     this.obstacles.addChild(new Rectangle(200, 200, 100, 100));
-    this.addChild(this.obstacles);
+    this.element.addChild(this.obstacles);
     this.player = new Player(10, 534, this.obstacles);
     this.player.texture = this.resources.cat.texture;
-    this.addChild(this.player.portal);
-    this.addChild(this.player);
+    
+    this.element.addChild(this.player);
+    this.element.addChild(this.player.portal);
 };
 Map.prototype.update = function() {
-    this.player.fall();
-    this.player.colisionY();
-    this.player.move();
-    this.player.colisionX();
-    this.player.portalColision();
+    this.player.update();
     this.center();
 };
 Map.prototype.click = function(e) {
-    this.player.setPortal(e.x);
+    this.player.setPortal(e);
 };
 Map.prototype.center = function() {
-    this.x = -this.player.x - (this.player.width / 2) + 400;
+    this.element.x = -this.player.x - (this.player.width / 2) + 400;
+    this.background.tilePosition.x = -this.player.x;
 };
 

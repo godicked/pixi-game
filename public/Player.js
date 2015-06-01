@@ -14,7 +14,7 @@ function Player(x, y, obstacles) {
     this.g = 40;
     this.isFalling = false;
     
-    this.portal = new Portal(700,595);
+    this.portal = new Portal();
     //this.portal.visible = false;
 }
 Player.prototype = Object.create(PIXI.Sprite.prototype);
@@ -43,9 +43,9 @@ Player.prototype.jump = function(force) {
         this.savedY = this.y;
     }
 };
-Player.prototype.forceFall = function() {
+Player.prototype.forceJump = function(n) {
     this.isFalling = false;
-    this.jump(0);
+    this.jump(n);
 };
 Player.prototype.colisionX = function() {
     var elem = this.obstacles.children;
@@ -81,7 +81,7 @@ Player.prototype.colisionY = function() {
                 else{
                     var offset = elem[i].y + elem[i].height - this.y;
                     this.y += offset;
-                    this.forceFall();
+                    this.forceJump(0);
                 }
             }
             if(offsetColision(this, elem[i], 1)) {
@@ -95,13 +95,25 @@ Player.prototype.colisionY = function() {
     }
 };
 Player.prototype.portalColision = function() {
-    if(this.portal.visible && colision(this, this.portal)){
-        this.jump(250);
+    if(this.portal.visible && !this.portal.moving && colision(this, this.portal)){
+        this.forceJump(250);
         this.portal.visible = false;
     }
 };
-Player.prototype.setPortal = function(x) {
-    this.portal.x = x - (this.portal.width / 2);
-    this.portal.visible = true;
+Player.prototype.setPortal = function(e) {
+    var point = {x : (this.x + this.width/2), y : (this.y + (this.height/2))}
+    var angle = - angleRadian(point, e);
+    this.portal.shoot((this.x + (this.width / 2)), (this.y + (this.height/2)), angle);
+};
+Player.prototype.update = function() {
+    this.fall();
+    this.colisionY();
+    this.move();
+    this.colisionX();
+    this.portalColision();
+    this.portal.update(this.obstacles);
 };
 
+function angleRadian(p1, p2) {
+    return Math.atan2(p2.y - p1.y, p2.x - p1.x);
+}
