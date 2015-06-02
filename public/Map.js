@@ -7,7 +7,7 @@ function Map(resources) {
     this.obstacles = new PIXI.Container();
     this.resources = resources;
     
-    var right = new Keyboard(39);
+    var right = new Keyboard(68);
     right.press = function() {
         this.player.speed += 10;
     }.bind(this);
@@ -15,7 +15,7 @@ function Map(resources) {
         this.player.speed -= 10;
     }.bind(this);
 
-    var left = new Keyboard(37);
+    var left = new Keyboard(65);
     left.press = function() {
         this.player.speed -= 10;
     }.bind(this);
@@ -23,7 +23,7 @@ function Map(resources) {
         this.player.speed += 10;
     }.bind(this);
 
-    var up = new Keyboard(38);
+    var up = new Keyboard(87);
     up.press = function() {
         this.player.jump(150);
     }.bind(this);
